@@ -1,0 +1,131 @@
+{% extends '../layout/base.html' %} {% block content %}
+<section
+  class="antialiased bg-gray-100 text-gray-600 h-screen px-4"
+  x-data="app"
+>
+  <div class="flex flex-col justify-center h-full">
+    <!-- Table -->
+    <div
+      class="w-full max-w-2xl mx-auto bg-white shadow-lg rounded-sm border border-gray-200"
+    >
+      <header class="px-5 py-4 border-b border-gray-100">
+        <div class="font-semibold text-gray-800">Manage Cars</div>
+        <div class="justify-right my-8 select-none flex">
+          <a href="{% url 'car_new' %}">
+            <button class="py-2 px-4 shadow-md no-underline rounded-full bg-red-500 text-white font-sans font-semibold text-sm border-blue btn-primary hover:text-white hover:bg-red-300 focus:outline-none active:shadow-none mr-2">Nuevo</button>
+          </a>
+        </div>
+      </header>
+
+      <div class="overflow-x-auto p-3">
+        <table class="table-auto w-full">
+          <thead
+            class="text-xs font-semibold uppercase text-gray-400 bg-gray-50"
+          >
+            <tr>
+              <th class="p-2">
+                <div class="font-semibold text-left">ID</div>
+              </th>
+              <th class="p-2">
+                <div class="font-semibold text-left">Plate</div>
+              </th>
+              <th class="p-2">
+                <div class="font-semibold text-left">Brand</div>
+              </th>
+              <th class="p-2">
+                <div class="font-semibold text-left">Color</div>
+              </th>
+              <th class="p-2">
+                <div class="font-semibold text-center">Action</div>
+              </th>
+            </tr>
+          </thead>
+
+          <tbody class="text-sm divide-y divide-gray-100">
+            <!-- record 1 -->
+            <!--<tr>
+              <td class="p-2">
+                <div class="font-medium text-gray-800">1</div>
+              </td>
+              <td class="p-2">
+                <div class="font-medium text-gray-800">PL-56-89</div>
+              </td>
+              <td class="p-2">
+                <div class="text-left">Suzuki</div>
+              </td>
+              <td class="p-2">
+                <div class="font-medium text-gray-800">Black</div>
+              </td>
+              <td class="p-2"></td>
+            </tr>-->
+            <!-- record 2 -->
+            <!-- <tr>
+              <td class="p-2">
+                <div class="font-medium text-gray-800">2</div>
+              </td>
+              <td class="p-2">
+                <div class="font-medium text-gray-800">GX-12-33</div>
+              </td>
+              <td class="p-2">
+                <div class="text-left">Samsung</div>
+              </td>
+              <td class="p-2">
+                <div class="font-medium text-gray-800">White</div>
+              </td>
+              <td class="p-2"></td>
+            </tr> -->
+
+            <!-- record 3 -->
+            <!-- <tr>
+              <td class="p-2">
+                <div class="font-medium text-gray-800">3</div>
+              </td>
+              <td class="p-2">
+                <div class="font-medium text-gray-800">WG-PH-95</div>
+              </td>
+              <td class="p-2">
+                <div class="text-left">Audi</div>
+              </td>
+              <td class="p-2">
+                <div class="font-medium text-gray-800">Silver</div>
+              </td>
+              <td class="p-2"></td>
+            </tr> -->
+            {% for car in car_list %}
+            <tr>
+              <td class="p-2">
+                <div class="font-medium text-gray-800">{{ car.id }}</div>
+              </td>
+              <td class="p-2">
+                <div class="font-medium text-gray-800">{{ car.plate }}</div>
+              </td>
+              <td class="p-2">
+                <div class="text-left">{{ car.brand }}</div>
+              </td>
+              <td class="p-2">
+                <div class="font-medium text-gray-800">{{ car.color }}</div>
+              </td>
+              <td class="p-2">
+                <a href="{% url 'car_detail' pk=car.id %}">
+                  <button class="py-2 px-4 shadow-md no-underline rounded-full bg-blue-500 text-white font-sans font-semibold text-sm border-blue btn-primary hover:text-white hover:bg-blue-200 focus:outline-none active:shadow-none mr-2">detalles</button>
+                </a>
+                <a href="{% url 'car_edit' pk=car.id %}">
+                  <button class="py-2 px-4 shadow-md no-underline rounded-full bg-purple-500 text-white font-sans font-semibold text-sm border-blue btn-primary hover:text-white hover:bg-purple-200 focus:outline-none active:shadow-none mr-2">editar</button>
+                </a>
+                <form method="post" action="{% url 'car_delete' pk=car.id %}">
+                  {% csrf_token %}
+                  <button type="submit"  value="Delete" class="py-2 px-4 shadow-md no-underline rounded-full bg-zinc-500 text-white font-sans font-semibold text-sm border-blue btn-primary hover:text-white hover:bg-zinc-200 focus:outline-none active:shadow-none mr-2">eliminar</button>
+                </form>
+              </td>
+            </tr>
+            {% empty %}
+            <tr>
+              Sorry, no cars in this added.
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+  </div>
+</section>
+{% endblock %}
